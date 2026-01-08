@@ -3,6 +3,8 @@ import 'package:app/screens/login/viewmodel/login_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../Notifcation/bluetooth_printer.dart';
+
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
@@ -141,7 +143,12 @@ void initState(){
                 SizedBox(height: 15),
 
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () async {
+                    print("Tapped");
+
+                   // await PrinterService().connectAndPrintDummy();
+                    print("Tapped");
+                  },
                   child: Text("Forgot Password?"),
                 ),
               ],

@@ -17,12 +17,12 @@ class Order {
 
   factory Order.fromJson(Map<String, dynamic> json) {
     return Order(
-      id: json['id'],
-      customerName: json['customer_name'],
-      tableNumber: json['table_number'],
-      status: json['status'],
-      price: json['price'],
-      items: (json['items'] as List)
+      id: json['id'] ?? 0,
+      customerName: json['customer_name'] ?? 'Unknown',
+      tableNumber: json['table_number'] ?? 0,
+      status: json['status'] ?? 'pending',
+      price: json['price'] ?? 0,
+      items: (json['items'] as List? ?? [])
           .map((e) => OrderItem.fromJson(e))
           .toList(),
     );
@@ -33,12 +33,15 @@ class OrderItem {
   final int quantity;
   final String name;
 
-  OrderItem({required this.quantity, required this.name});
+  OrderItem({
+    required this.quantity,
+    required this.name,
+  });
 
   factory OrderItem.fromJson(Map<String, dynamic> json) {
     return OrderItem(
-      quantity: json['quantity'],
-      name: json['menu']['name'],
+      quantity: json['quantity'] ?? 0,
+      name: json['menu']?['name'] ?? 'Item',
     );
   }
 }

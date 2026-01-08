@@ -1,12 +1,15 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:app/Notifcation/firebase_notifcation.dart';
 import 'package:app/config/api_constants.dart';
 import 'package:app/config/shared_pref.dart';
 import 'package:app/screens/home/view/home_page.dart';
 import 'package:app/screens/login/model/login_model.dart' show LoginModel;
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+
+import '../../../Notifcation/bluetooth_printer.dart';
 
 class LoginProvider extends ChangeNotifier {
   String? token;
@@ -18,11 +21,16 @@ class LoginProvider extends ChangeNotifier {
     notifyListeners();
 
     try {
+     // final deviceToken = await FirebaseNotifcation().getDeviceToken();
+      //await PrinterService().connectAndPrintDummy();
+    //   debugPrint("Login Successful token: $deviceToken");
+
       final response = await http.post(
         Uri.parse("${ApiConstants.baseUrl}/login"),
         body: {
           "email": email,
           "password": password,
+      //   "fcm_token": deviceToken
         },
       );
 
@@ -32,7 +40,7 @@ class LoginProvider extends ChangeNotifier {
         token = model.accessToken; // ✅ SAVE TOKEN
         await SharedPref().saveToken(token!); // Save token to shared preferences
 
-        debugPrint("Login Successful token: ${await SharedPref().getToken()}");
+        debugPrint("Login Successful $model ${response.body} token: ${await SharedPref().getToken()}");
 
         Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomePage()));
         error = null;

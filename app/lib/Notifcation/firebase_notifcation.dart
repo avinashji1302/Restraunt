@@ -2,6 +2,7 @@ import 'package:app/screens/home/viewmodel/home_provider.dart';
 import 'package:app_settings/app_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'bluetooth_printer.dart';
 import 'local_notifications.dart';
 
 
@@ -38,7 +39,8 @@ final homeProvider = HomeProvider();
 
     
    //await LocalNotifications.showNotification(message.data['custom data']??"null", body);
-
+    // AUTO PRINT
+    await PrinterService().connectAndPrintDummy(message);
     debugPrint("✅ Notification shown successfully");
   } catch (e, stack) {
     debugPrint("❌ Notification error: $e");
@@ -112,6 +114,9 @@ Future<void> firebaseForegroundHandler(
 
     
    await LocalNotifications.showNotification(message.data['custom data']??"null", message.notification?.body ?? "No Body");
+
+    // Auto print
+    await PrinterService().connectAndPrintDummy(message);
 
     debugPrint("✅ Notification shown successfully");
   } catch (e, stack) {
