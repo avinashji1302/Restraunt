@@ -1,4 +1,6 @@
+import 'package:app/Notifcation/firebase_notifcation.dart';
 import 'package:app/screens/home/viewmodel/home_provider.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -14,6 +16,8 @@ class _HomePageState extends State<HomePage> {
     Future.microtask(() {
       context.read<HomeProvider>().getOrders();
     });
+
+    FirebaseNotifcation().initFirebaseNotification();
   }
 
   Color _statusColor(String status) {

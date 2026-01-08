@@ -43,5 +43,8 @@ class HomeProvider extends ChangeNotifier {
     isLoading = false;
     notifyListeners();
   }
+
+
+  
 }
 

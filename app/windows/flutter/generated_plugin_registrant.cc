@@ -6,6 +6,15 @@
 
 #include "generated_plugin_registrant.h"
 
+#include <charset_converter/charset_converter_plugin.h>
+#include <firebase_core/firebase_core_plugin_c_api.h>
+#include <flutter_blue_plus_winrt/flutter_blue_plus_plugin.h>
 
 void RegisterPlugins(flutter::PluginRegistry* registry) {
+  CharsetConverterPluginRegisterWithRegistrar(
+      registry->GetRegistrarForPlugin("CharsetConverterPlugin"));
+  FirebaseCorePluginCApiRegisterWithRegistrar(
+      registry->GetRegistrarForPlugin("FirebaseCorePluginCApi"));
+  FlutterBluePlusPluginRegisterWithRegistrar(
+      registry->GetRegistrarForPlugin("FlutterBluePlusPlugin"));
 }

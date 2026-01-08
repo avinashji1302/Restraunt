@@ -37,6 +37,15 @@ dependencies:
   provider: ^6.0.5
   http: ^1.2.0
   shared_preferences: ^2.5.4
+  firebase_core: ^4.3.0
+  firebase_messaging: ^16.1.0
+  flutter_blue_plus: ^2.1.0
+  esc_pos_printer: ^4.1.0
+  esc_pos_utils: ^1.1.0
+  flutter_local_notifications: ^19.5.0
+  app_settings: ^7.0.0
+  blue_thermal_printer: ^1.2.3
+
 
 dev_dependencies:
   flutter_test:

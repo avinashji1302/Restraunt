@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:app/config/api_constants.dart';
 import 'package:app/config/shared_pref.dart';
@@ -45,4 +46,26 @@ class LoginProvider extends ChangeNotifier {
     isLoading = false;
     notifyListeners();
   }
+
+
+  Future<void> sendTokenToBackend(String token) async {
+    debugPrint("Sending FCM token to backend: $token");
+    final String? authToken = await SharedPref().getToken();
+    if (authToken == null) {
+      debugPrint("No auth token found. Cannot send FCM token to backend.");
+      return;
+    }
+  await http.post(
+    Uri.parse('${ApiConstants.baseUrl}/save-fcm-token'),
+    headers: {
+      'Authorization': 'Bearer $authToken',
+      'Content-Type': 'application/json',
+    },
+    body: jsonEncode({
+      "fcm_token": token,
+      "device_type": Platform.isAndroid ? "android" : "ios"
+    }),
+  );
+}
+
 }

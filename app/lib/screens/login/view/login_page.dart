@@ -1,3 +1,4 @@
+import 'package:app/Notifcation/firebase_notifcation.dart';
 import 'package:app/screens/login/viewmodel/login_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -13,6 +14,18 @@ class _LoginPageState extends State<LoginPage> {
   final emailCtrl = TextEditingController(text: "Rama@gmail.com");
   final passCtrl = TextEditingController(text: "Bytech@123");
   bool obscure = true;
+
+
+@override 
+void initState(){
+    super.initState();
+    FirebaseNotifcation().initFirebaseNotification();
+    FirebaseNotifcation().getDeviceToken().then((token){
+      debugPrint("FCM Device Token: $token");
+      Provider.of<LoginProvider>(context,listen:false).sendTokenToBackend(token!);
+
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
