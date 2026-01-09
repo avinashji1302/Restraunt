@@ -127,7 +127,7 @@ void initState(){
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Center(
-                        child: Text(
+                        child: login.isLoading?CircularProgressIndicator(): Text(
                           "LOGIN",
                           style: TextStyle(
                             fontSize: 16,

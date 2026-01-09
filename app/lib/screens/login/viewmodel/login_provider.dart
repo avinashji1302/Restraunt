@@ -21,16 +21,16 @@ class LoginProvider extends ChangeNotifier {
     notifyListeners();
 
     try {
-     // final deviceToken = await FirebaseNotifcation().getDeviceToken();
-      //await PrinterService().connectAndPrintDummy();
-    //   debugPrint("Login Successful token: $deviceToken");
+     final deviceToken = await FirebaseNotifcation().getDeviceToken();
+      // await PrinterService().connectAndPrintDummy();
+      debugPrint("Login Successful token: $deviceToken");
 
       final response = await http.post(
         Uri.parse("${ApiConstants.baseUrl}/login"),
         body: {
           "email": email,
           "password": password,
-      //   "fcm_token": deviceToken
+       "fcm_token": deviceToken
         },
       );
 

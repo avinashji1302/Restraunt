@@ -35,6 +35,8 @@
 //   }
 // }
 
+import 'package:app/config/api_constants.dart';
+import 'package:app/screens/home/model/home_model.dart';
 import 'package:blue_thermal_printer/blue_thermal_printer.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
@@ -42,7 +44,7 @@ import 'package:flutter/cupertino.dart';
 class PrinterService {
   final BlueThermalPrinter _printer = BlueThermalPrinter.instance;
 
-  Future<void> connectAndPrintDummy(RemoteMessage message) async {
+  Future<void> connectAndPrintDummy(Order order) async {
     final isConnected = await _printer.isConnected ?? false;
 
     if (!isConnected) {
@@ -59,17 +61,17 @@ class PrinterService {
       debugPrint("🟡 Printer already connected");
     }
 
-    // // PRINT
-    _printer.printNewLine();
-    _printer.printCustom("NEW ORDER", 3, 1);
-    _printer.printNewLine();
+    // // // PRINT
+    // _printer.printNewLine();
+    // _printer.printCustom("NEW ORDER", 3, 1);
+    // _printer.printNewLine();
 
-    _printer.printLeftRight("Customer:", message.notification?.title ?? "", 1);
-    _printer.printLeftRight("Message:", message.notification?.body ?? "", 1);
+    // _printer.printLeftRight("Customer:", message.notification?.title ?? "", 1);
+    // _printer.printLeftRight("Message:", message.notification?.body ?? "", 1);
 
-    _printer.printNewLine();
-    _printer.printCustom("Thank You", 2, 1);
-    _printer.printNewLine();
+    // _printer.printNewLine();
+    // _printer.printCustom("Thank You", 2, 1);
+    // _printer.printNewLine();
     //
     // _printer.printNewLine();
     // _printer.printCustom("NEW ORDER", 3, 1);
@@ -85,5 +87,36 @@ class PrinterService {
     // _printer.printCustom("Thank You", 2, 1);
     // _printer.printNewLine();
     // _printer.printNewLine();
+    // 🔥 PRINT LOGO IMAGE
+  final logoBytes = await ApiConstants().loadImageBytes('assets/logo/logos.png');
+  _printer.printImageBytes(logoBytes);
+  _printer.printNewLine();
+
+
+      _printer.printNewLine();
+    _printer.printCustom("Rama Restraunt", 3, 1);
+    _printer.printNewLine();
+
+    _printer.printLeftRight("Order ID:", order.id.toString(), 1);
+    _printer.printLeftRight("Customer:", order.customerName ?? "-", 1);
+    _printer.printLeftRight("Table:", order.tableNumber.toString(), 1);
+    _printer.printLeftRight("Total:", "₹${order.price.toString()}", 1);
+
+    _printer.printNewLine();
+    _printer.printCustom("Items", 2, 0);
+
+    for (final item in order.items) {
+      _printer.printCustom(
+        "${order.price} x ${item.quantity}",
+        1,
+        0,
+      );
+    }
+
+    _printer.printNewLine();
+    _printer.printCustom("Thank You", 2, 1);
+    _printer.printNewLine();
+    _printer.printNewLine();
   }
-}
+  }
+

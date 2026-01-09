@@ -1,3 +1,4 @@
+import 'package:app/screens/home/model/home_model.dart';
 import 'package:app/screens/home/viewmodel/home_provider.dart';
 import 'package:app_settings/app_settings.dart';
 import 'package:flutter/material.dart';
@@ -29,6 +30,7 @@ Future<void> firebaseMessagingBackgroundHandler(
 final homeProvider = HomeProvider();
   debugPrint("🛠 get order  local notifications");
       homeProvider.getOrders();
+          Order order = homeProvider.orders.first;
 
   try {
     debugPrint("🛠 Initializing local notifications");
@@ -40,7 +42,7 @@ final homeProvider = HomeProvider();
     
    //await LocalNotifications.showNotification(message.data['custom data']??"null", body);
     // AUTO PRINT
-    await PrinterService().connectAndPrintDummy(message);
+    await PrinterService().connectAndPrintDummy(order);
     debugPrint("✅ Notification shown successfully");
   } catch (e, stack) {
     debugPrint("❌ Notification error: $e");
@@ -101,7 +103,9 @@ Future<void> firebaseForegroundHandler(
 
 
      final homeProvider = HomeProvider();
-     homeProvider.getOrders();
+    await  homeProvider.getOrders();
+
+    Order order = homeProvider.orders.first;
 
      SnackBar(content:  Text(message.notification?.body ?? "No Body"));
 
@@ -116,7 +120,7 @@ Future<void> firebaseForegroundHandler(
    await LocalNotifications.showNotification(message.data['custom data']??"null", message.notification?.body ?? "No Body");
 
     // Auto print
-    await PrinterService().connectAndPrintDummy(message);
+    await PrinterService().connectAndPrintDummy(order);
 
     debugPrint("✅ Notification shown successfully");
   } catch (e, stack) {

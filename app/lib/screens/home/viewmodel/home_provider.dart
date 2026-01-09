@@ -17,6 +17,7 @@ class HomeProvider extends ChangeNotifier {
 
     try {
       final token = await SharedPref().getToken() ?? "";
+      debugPrint("Token in url: ${ApiConstants.baseUrl}/orders/my");
 
       debugPrint("Token in HomeProvider: $token");
 
