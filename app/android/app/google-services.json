@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "220402991209",
-    "project_id": "avinash-f87ba",
-    "storage_bucket": "avinash-f87ba.firebasestorage.app"
+    "project_number": "671010329150",
+    "project_id": "qrdigital-345a1",
+    "storage_bucket": "qrdigital-345a1.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:220402991209:android:4c6f6825e45059e30622f8",
+        "mobilesdk_app_id": "1:671010329150:android:8fdc6ea32cccf087cab76f",
         "android_client_info": {
-          "package_name": "com.example.net"
+          "package_name": "com.qrdigitalmenu"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyAf3_bRR0S8EGyw5yXxiOXQZ2VZNsRfb6k"
+          "current_key": "AIzaSyBq6xRZ8uB8nZ5KiJTTCxClDPL0AsLpdrU"
         }
       ],
       "services": {

@@ -14,6 +14,8 @@ void main()  async{
 
      WidgetsFlutterBinding.ensureInitialized();
      await Firebase.initializeApp();
+
+     print("token : ${ await FirebaseNotifcation().getDeviceToken()}");
   FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
     
      
